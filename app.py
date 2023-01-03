@@ -3,6 +3,7 @@ import random
 import string
 import moviepy.editor as mp
 from pythonping import ping 
+import urllib.parse as ulib
 from flask import Flask,jsonify,request
 
 
@@ -23,7 +24,7 @@ def checkPing():
 
 @app.route('/mp3',methods = ['GET','POST'])
 def mp3conv():
-  url = request.args.get('url',1)
+  url = ulib.unquote(request.args.get('url',1))
   print(url)
   vid = mp.VideoFileClip(rf'{url}')
   fname = filename('mp3',16)
