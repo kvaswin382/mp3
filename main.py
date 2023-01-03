@@ -21,9 +21,10 @@ def checkPing():
   }
   return jsonify(data)
 
-@app.route('/mp3')
+@app.route('/mp3',methods = ['GET','POST'])
 def mp3conv():
   url = request.args.get('url',1)
+  print(url)
   vid = mp.VideoFileClip(rf'{url}')
   fname = filename('mp3',16)
   vid.audio.write_audiofile(rf'{fname}')
