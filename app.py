@@ -1,7 +1,7 @@
 import os
 import random
 import string
-import moviepy as mp
+import moviepy.editor as mp
 from pythonping import ping 
 from flask import Flask,jsonify,request
 
