@@ -28,10 +28,8 @@ def mp3conv():
   print(url)
   vid = mp.VideoFileClip(rf'{url}')
   fname = filename('mp3',16)
-  if not os.path.exists('/Audios'):
-    os.mkdir('/Audios')
-  vid.audio.write_audiofile(rf'/Audios/{fname}')
-  path = os.path.abspath(f'/Audios/{fname}')
+  vid.audio.write_audiofile(rf'/{fname}')
+  path = f'/{fname}'
   data = {
     'ok': True,
     'mp3': path
