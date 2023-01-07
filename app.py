@@ -1,7 +1,6 @@
 import os
 import random
 import string
-import requests
 import moviepy.editor as mp
 from pythonping import ping 
 import urllib.parse as ulib
@@ -29,6 +28,8 @@ def mp3conv():
   print(url)
   vid = mp.VideoFileClip(rf'{url}')
   fname = filename('mp3',16)
+  if not os.path.exists('/Audios'):
+    mkdir('/Audios')
   vid.audio.write_audiofile(rf'/Audios/{fname}')
   path = os.path.abspath(f'/Audios/{fname}')
   data = {
@@ -40,7 +41,8 @@ def mp3conv():
 @app.route('/sendFile',methods = ['GET','POST'])
 def sendFile():
   url = ulib.unquote(request.args.get('url',1))
-  chat_id = ulib.unquote(request.args.get('chat_id',1))
+  chat_id = request.args.get('chat_id',1)
+  token = request.args.get('token',1)
   print(url)
   api_url = f'https://api.telegram.org/bot{token}/sendVideo'
   video_data = open(url,'rb')
@@ -52,7 +54,12 @@ def sendFile():
     'Content-type': 'multipart/form-data'
   }
   response = requests.post(api_url,headers=headers,data=data)
-  print(response.status_code)
+  try:
+    print(response.status_code)
+  except:
+    print('Cant print status code')
+  res = response.json()
+  print(res['ok'])
   video_data.close()
   
 if __name__ == '__main__':
