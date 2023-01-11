@@ -19,7 +19,6 @@ def mp3conv():
   print(url)
   vid = mp.VideoFileClip(rf'{url}')
   fname = filename('mp3')
-  print(fname)
   vid.audio.write_audiofile(rf'/{fname}')
   path = os.path.abspath(f'/{fname}')
   data = {
